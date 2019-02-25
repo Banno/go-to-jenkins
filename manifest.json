@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Go to Jenkins",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Go to the Jenkins job for the given pull request",
 
   "content_scripts": [{
