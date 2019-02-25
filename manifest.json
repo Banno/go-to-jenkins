@@ -7,6 +7,6 @@
 
   "content_scripts": [{
     "js": ["content.js"],
-    "matches": ["https://github.com/Banno/mobile-android/pull/*"]
+    "matches": ["https://github.com/Banno/*"]
   }]
 }
