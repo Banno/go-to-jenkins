@@ -1,15 +1,26 @@
-function isPullRequest() {
-    return window.location.pathname.match(/pull\/\d+/) != null
-}
+function getJenkinsUrl(pathname) {
+    var urlMap = new Map([
+        [new RegExp("/Banno/mobile-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-"],
+        [new RegExp("/Banno/conversations-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-"],
+        [new RegExp("/Banno/zelle-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-"]
+    ])
 
-function jenkinsUrl() {
-    return window.location.pathname
-        .match(/pull\/\d+/)[0]
-        .replace(/pull\//, "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-");
+    var jenkinsUrl = null
+
+    urlMap.forEach(function(url, regex) {
+        if (regex.test(pathname)) {
+            jenkinsUrl = pathname.replace(regex, url);
+        }
+    });
+
+    return jenkinsUrl;
 }
 
 function addButtonIfNecessary() {
-    if (!isPullRequest()) {
+
+    var jenkinsUrl = getJenkinsUrl(window.location.pathname);
+
+    if (jenkinsUrl == null) {
         return;
     }
 
@@ -20,7 +31,7 @@ function addButtonIfNecessary() {
         button.innerHTML = "Go to Jenkins"
         button.classList.add("btn")
         button.classList.add("btn-sm")
-        button.setAttribute("href", jenkinsUrl())
+        button.setAttribute("href", jenkinsUrl)
 
         var actions = document.getElementsByClassName('gh-header-actions')[0];
         actions.appendChild(button)
