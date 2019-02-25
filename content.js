@@ -1,19 +1,11 @@
 function getJenkinsUrl(pathname) {
-    var urlMap = new Map([
-        [new RegExp("/Banno/mobile-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-"],
-        [new RegExp("/Banno/conversations-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-"],
-        [new RegExp("/Banno/zelle-android/pull/"), "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-"]
-    ])
+    var urlMap = [
+        { regexp: new RegExp("/Banno/mobile-android/pull/"), url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-" },
+        { regexp: new RegExp("/Banno/conversations-android/pull/"), url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-" },
+        { regexp: new RegExp("/Banno/zelle-android/pull/"), url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-" }
+    ]
 
-    var jenkinsUrl = null
-
-    urlMap.forEach(function(url, regex) {
-        if (regex.test(pathname)) {
-            jenkinsUrl = pathname.replace(regex, url);
-        }
-    });
-
-    return jenkinsUrl;
+    return urlMap.filter(x => x.regexp.test(pathname)).map(x => pathname.replace(x.regexp, x.url)).find(x => true)
 }
 
 function addButtonIfNecessary() {
