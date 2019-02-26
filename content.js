@@ -1,16 +1,17 @@
 function getJenkinsUrl(pathname) {
+    var androidJobPath = "https://jenkins.dev.banno-internal.com/job/mobile-android/job"
     var urls = [
         {
             repo: "Banno/mobile-android",
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-{PR}"
+            url: `${androidJobPath}/android-tests/view/change-requests/job/PR-{PR}`
         },
         {
             repo: "Banno/conversations-android",
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-{PR}"
+            url: `${androidJobPath}/conversations/job/tests/view/change-requests/job/PR-{PR}`
         },
         {
             repo: "Banno/zelle-android",
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-{PR}"
+            url: `${androidJobPath}/zelle/job/tests/view/change-requests/job/PR-{PR}`
         }
     ]
 
