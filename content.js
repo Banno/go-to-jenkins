@@ -1,23 +1,26 @@
 function getJenkinsUrl(pathname) {
     var urls = [
         {
-            regexp: new RegExp("/Banno/mobile-android/pull/"),
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-"
+            repo: "Banno/mobile-android",
+            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/android-tests/view/change-requests/job/PR-{PR}"
         },
         {
-            regexp: new RegExp("/Banno/conversations-android/pull/"),
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-"
+            repo: "Banno/conversations-android",
+            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/conversations/job/tests/view/change-requests/job/PR-{PR}"
         },
         {
-            regexp: new RegExp("/Banno/zelle-android/pull/"),
-            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-"
+            repo: "Banno/zelle-android",
+            url: "https://jenkins.dev.banno-internal.com/job/mobile-android/job/zelle/job/tests/view/change-requests/job/PR-{PR}"
         }
     ]
 
+    var pullRequestRegExp = (repo => new RegExp(`/${repo}/pull/(\\d*)`))
+    var pullRequestNumber = (repo => pathname.match(pullRequestRegExp(repo))[1])
+
     return urls
-        .filter(x => x.regexp.test(pathname))
-        .map(x => pathname.replace(x.regexp, x.url))
-        .find(x => true)
+        .filter(x => pullRequestRegExp(x.repo).test(pathname))
+        .map(x => x.url.replace("{PR}", pullRequestNumber(x.repo)))
+        .shift()
 }
 
 function addButtonIfNecessary() {
