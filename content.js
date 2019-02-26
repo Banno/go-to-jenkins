@@ -1,6 +1,6 @@
 function getJenkinsUrl(pathname) {
-    var androidJobPath = "https://jenkins.dev.banno-internal.com/job/mobile-android/job"
-    var urls = [
+    const androidJobPath = "https://jenkins.dev.banno-internal.com/job/mobile-android/job"
+    const urls = [
         {
             repo: "Banno/mobile-android",
             url: `${androidJobPath}/android-tests/view/change-requests/job/PR-{PR}`
@@ -15,8 +15,8 @@ function getJenkinsUrl(pathname) {
         }
     ]
 
-    var pullRequestRegExp = (repo => new RegExp(`/${repo}/pull/(\\d*)`))
-    var pullRequestNumber = (repo => pathname.match(pullRequestRegExp(repo))[1])
+    const pullRequestRegExp = (repo => new RegExp(`/${repo}/pull/(\\d*)`))
+    const pullRequestNumber = (repo => pathname.match(pullRequestRegExp(repo))[1])
 
     return urls
         .filter(x => pullRequestRegExp(x.repo).test(pathname))
@@ -26,13 +26,13 @@ function getJenkinsUrl(pathname) {
 
 function addButtonIfNecessary() {
 
-    var jenkinsUrl = getJenkinsUrl(window.location.pathname);
+    const jenkinsUrl = getJenkinsUrl(window.location.pathname);
 
     if (jenkinsUrl == null) {
         return;
     }
 
-    var existingButton = document.getElementById("go-to-jenkins-button")
+    const existingButton = document.getElementById("go-to-jenkins-button")
     if (existingButton == null) {
         var button = document.createElement("a")
         button.id = "go-to-jenkins-button"
@@ -41,7 +41,7 @@ function addButtonIfNecessary() {
         button.classList.add("btn-sm")
         button.setAttribute("href", jenkinsUrl)
 
-        var actions = document.getElementsByClassName('gh-header-actions')[0];
+        const actions = document.getElementsByClassName('gh-header-actions')[0];
         actions.appendChild(button)
     }
 }
