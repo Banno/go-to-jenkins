@@ -4,7 +4,10 @@
   "name": "Go to Jenkins",
   "version": "0.0.6",
   "description": "Go to the Jenkins job for the given pull request",
-
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "content_scripts": [{
     "js": ["content.js"],
     "matches": ["https://github.com/Banno/*"]
