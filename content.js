@@ -1,5 +1,5 @@
 function getJenkinsUrl(pathname) {
-    const androidJobPath = "https://jenkins.dev.banno-internal.com/job/mobile-android/job"
+    const androidJobPath = "https://jenkins.banno-tools.com/job/mobile-android/job"
     const urls = [
         {
             repo: "Banno/mobile-android",
