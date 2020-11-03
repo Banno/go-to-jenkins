@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Go to Jenkins",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Go to the Jenkins job for the given pull request",
   "icons": {
     "48": "icon48.png",
