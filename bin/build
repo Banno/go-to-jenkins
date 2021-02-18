@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+NAME="go-to-jenkins"
+VERSION=$(jq -r ".version" < ./manifest.json)
+OUTPUT_DIR="./output"
+ARCHIVE_FILE="$OUTPUT_DIR/$NAME-v$VERSION.zip"
+
+mkdir -p $OUTPUT_DIR
+git archive --format=zip --output="$ARCHIVE_FILE" HEAD *.js *.json *.png
