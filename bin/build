@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found"
+    exit
+fi
+
 NAME="go-to-jenkins"
 VERSION=$(jq -r ".version" < ./manifest.json)
 OUTPUT_DIR="./output"
